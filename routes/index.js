@@ -22,7 +22,7 @@ router.post('/api/:term(*)', (req, res) => {
 });
 
 router.delete('/api/:term(*)', (req, res) => {
-  Favorites.find({ term: req.params.term }).remove();
+  Favorites.find({ term: req.params.term }).remove().exec();
   res.send('Removed');
 });
 
