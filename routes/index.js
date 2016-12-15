@@ -18,7 +18,12 @@ router.get('/api', (req, res) => {
 
 router.post('/api/:term(*)', (req, res) => {
   new Favorites({ term: req.params.term }).save();
-  res.send('cool');
+  res.send('Added');
+});
+
+router.delete('/api/:term(*)', (req, res) => {
+  Favorites.find({ term: req.params.term }).remove();
+  res.send('Removed');
 });
 
 module.exports = router;
