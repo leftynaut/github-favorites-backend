@@ -17,12 +17,14 @@ router.get('/api', (req, res) => {
 });
 
 router.post('/api/:term(*)', (req, res) => {
-  new Favorites({ term: req.params.term }).save();
+  const term = req.params.term.toLowerCase()
+  new Favorites({ term }).save();
   res.send('Added');
 });
 
 router.delete('/api/:term(*)', (req, res) => {
-  Favorites.find({ term: req.params.term }).remove().exec();
+  const term = req.params.term.toLowerCase()
+  Favorites.find({ term }).remove().exec();
   res.send('Removed');
 });
 
