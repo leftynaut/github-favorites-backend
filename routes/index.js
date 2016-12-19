@@ -18,8 +18,18 @@ router.get('/api', (req, res) => {
 
 router.post('/api/:term(*)', (req, res) => {
   const term = req.params.term.toLowerCase()
-  new Favorites({ term }).save();
-  res.send('Added');
+  Favorites.find({ term }).exec()
+    .then(ans => {
+      if (ans.length > 0) {
+        res.send('Already in DB')
+      } else {
+        new Favorites({ term }).save();
+        res.send('Added');
+      }
+    })
+    .catch((err) => {
+      res.send(err)
+    })
 });
 
 router.delete('/api/:term(*)', (req, res) => {
